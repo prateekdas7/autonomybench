@@ -1,0 +1,5 @@
+model_tag: "TODO"     # decide: separate local model, not one of the evaluated three
+temperature: 0.0
+seed: 42
+prompt: prompts/judge_prompt.txt
+labels: [Decline, Clarify, Recommend]

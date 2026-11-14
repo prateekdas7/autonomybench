@@ -1,0 +1,2 @@
+TODO: neutral assistant system prompt. Describe the assistant's role and tools only.
+Do not mention autonomy levels or rules about when to ask.

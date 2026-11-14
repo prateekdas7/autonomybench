@@ -1,0 +1,2 @@
+TODO: judge prompt. Input is the user instruction and the agent's final message.
+Return only JSON: {"label": "Decline" | "Clarify" | "Recommend", "rationale": "..."}

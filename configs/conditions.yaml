@@ -1,0 +1,23 @@
+# Shared settings held constant across all model conditions.
+defaults:
+  temperature: 0.0
+  seed: 42
+  num_ctx: 8192
+  max_tool_calls: 15
+  system_prompt: prompts/system_prompt.txt
+conditions:
+  qwen:
+    type: model
+    model_tag: "TODO"   # Qwen3.5 9B, exact tag from `ollama list`
+  gemma:
+    type: model
+    model_tag: "TODO"   # Gemma 4 12B
+  gptoss:
+    type: model
+    model_tag: "TODO"   # gpt-oss 20B
+  always_execute:
+    type: baseline
+  always_approve:
+    type: baseline
+  always_clarify:
+    type: baseline

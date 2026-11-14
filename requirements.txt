@@ -1,0 +1,11 @@
+langgraph
+langchain-core
+langchain-ollama
+pyyaml
+python-dotenv
+numpy
+pandas
+scikit-learn
+krippendorff
+tqdm
+pytest

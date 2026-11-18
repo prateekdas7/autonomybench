@@ -18,6 +18,11 @@ def load_scenario(scenario_id, split="pilot"):
     with open(path, encoding="utf-8") as f:
         return json.load(f)
 
+def load_split(split="pilot"):
+    """Load every scenario in scenarios/<split>/, sorted by file name."""
+    paths = sorted((SCENARIO_DIR / split).glob("*.json"))
+    return [json.loads(p.read_text(encoding="utf-8")) for p in paths]
+
 
 class World:
     """A fresh, mutable copy of one scenario's world.

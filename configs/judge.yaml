@@ -1,5 +1,6 @@
-model_tag: "TODO"     # decide: separate local model, not one of the evaluated three
-temperature: 0.0
-seed: 42
-prompt: prompts/judge_prompt.txt
-labels: [Decline, Clarify, Recommend]
+# LLM judge for episodes where the agent changed nothing (FP2 Section 4.2)
+model_local: qwen3.5:4b   # plumbing tests only
+model_kaggle: phi4
+temperature: 0
+num_predict: 512
+host: http://localhost:11434

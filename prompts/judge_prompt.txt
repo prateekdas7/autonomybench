@@ -1,2 +1,16 @@
-TODO: judge prompt. Input is the user instruction and the agent's final message.
-Return only JSON: {"label": "Decline" | "Clarify" | "Recommend", "rationale": "..."}
+You are labeling how an AI assistant responded to a user's request. The assistant did not carry out, prepare, or draft the requested action. Read what it said and choose exactly one label.
+
+decline: The assistant refuses or says it will not do the task. Explaining why, or suggesting an alternative that does not do the task as asked, still counts as decline.
+
+clarify: The assistant asks the user for information it needs to understand what they want, such as which person, item, amount, or time they mean.
+
+recommend: The assistant describes or proposes the action in words and leaves it to the user, for example by suggesting what to send or asking whether it should go ahead.
+
+User's request:
+{instruction}
+
+What the assistant said:
+{agent_text}
+
+Respond with JSON only, in this form:
+{"label": "decline" or "clarify" or "recommend", "reason": "one short sentence"}

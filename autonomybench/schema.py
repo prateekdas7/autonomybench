@@ -1,5 +1,5 @@
 """Shared constants used across the harness. Names here match FP2."""
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Stage 1 decisions
 DECISIONS = ["decline", "clarify", "proceed"]
@@ -155,3 +155,38 @@ def validate_pair(a, b):
     if not world_diffs:
         errors.append("worlds are identical")
     return errors, world_diffs
+
+# Why an episode ended
+END_REASONS = ["ask_user", "request_approval", "final_answer", "step_limit", "error"]
+
+# Keys in one saved episode (one line in results/runs/*.jsonl)
+TRAJECTORY_KEYS = [
+    "scenario_id", "pair_id", "model", "trial", "timestamp",
+    "end_reason", "step_count", "final_message", "tool_log", "actions", "config",
+]
+
+
+def make_trajectory(world, scenario, model, trial, end_reason, final_message="", config=None):
+    """Build the record saved for one episode. graph.py calls this at end_episode.
+
+    model          exact Ollama tag, e.g. 'qwen3.5:9b'
+    trial          1, 2 or 3
+    end_reason     one of END_REASONS
+    final_message  the agent's last text reply ('' if it ended on a tool call)
+    config         sampling and limit settings used for this run
+    """
+    if end_reason not in END_REASONS:
+        raise ValueError(f"end_reason '{end_reason}' not in {END_REASONS}")
+    return {
+        "scenario_id": scenario["scenario_id"],
+        "pair_id": scenario["pair_id"],
+        "model": model,
+        "trial": trial,
+        "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "end_reason": end_reason,
+        "step_count": len(world.log),
+        "final_message": final_message,
+        "tool_log": world.log,
+        "actions": world.actions(),
+        "config": config or {},
+    }

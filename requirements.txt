@@ -9,3 +9,4 @@ scikit-learn
 krippendorff
 tqdm
 pytest
+ipykernel

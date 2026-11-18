@@ -1,23 +1,29 @@
-# Shared settings held constant across all model conditions.
-defaults:
-  temperature: 0.0
-  seed: 42
-  num_ctx: 8192
-  max_tool_calls: 15
-  system_prompt: prompts/system_prompt.txt
-conditions:
-  qwen:
-    type: model
-    model_tag: "TODO"   # Qwen3.5 9B, exact tag from `ollama list`
-  gemma:
-    type: model
-    model_tag: "TODO"   # Gemma 4 12B
-  gptoss:
-    type: model
-    model_tag: "TODO"   # gpt-oss 20B
-  always_execute:
-    type: baseline
-  always_approve:
-    type: baseline
-  always_clarify:
-    type: baseline
+# Experiment settings. Change values here, not in code.
+
+agent_models:
+  kaggle:
+    - qwen3.5:9b
+    - gemma4:12b
+    - gpt-oss:20b
+  local:
+    - qwen3.5:4b        # plumbing tests only
+
+sampling:
+  temperature: 0.7      # PENDING team decision. At 0 the 3 trials are near identical
+  num_predict: 2048     # max tokens per model reply (gpt-oss reasons before acting)
+  seed: null            # set an integer for exact reruns while debugging
+
+episode:
+  max_tool_calls: 15    # FP2 step limit
+  trials_per_scenario: 3
+
+ollama:
+  host: http://localhost:11434
+  context_length: 8192  # matches OLLAMA_CONTEXT_LENGTH in the Kaggle setup cell
+
+scenarios:
+  split: pilot          # pilot or full
+
+output:
+  runs_dir: results/runs
+  summaries_dir: results/summaries
